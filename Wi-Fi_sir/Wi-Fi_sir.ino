@@ -73,9 +73,9 @@ void loop() {
                                                     
   if(flag_open&&(millis()>(fot+10000))){Serial.println("n0");flag_open=false;}//Таймер(10с) чтоб дверь сама закрывалась
  
- if(Firebase.getInt("consol")){flagg=true;tone(piezoPin, 500, 500);//Если был запрос дистанционного открытия
+ if(Firebase.getString("consol")=="1"){flagg=true;tone(piezoPin, 500, 500);//Если был запрос дистанционного открытия
                               Serial.print("d1");Firebase.setString("sost","Открыто дистанционно");}//Уведомить обратно и открыть сервер
-else if(flagg){Serial.print("d0");flagg=false;}
+else if(flagg){Serial.print("d0");flagg=false;Firebase.setString("sost","Закрыто");}
 
 if(Serial.available()>1){
   key=Serial.read();
